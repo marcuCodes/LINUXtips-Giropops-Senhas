@@ -5,7 +5,7 @@ import redis
 import string
 import random
 import os
-from prometheus_client import Counter, generate_latest, CollectorRegistry, REGISTRY  # Adicionando a importação necessária
+from prometheus_client import Counter, generate_latest, CollectorRegistry, REGISTRY
 
 app = Flask(__name__)
 
@@ -80,15 +80,13 @@ def ping():
 
 if __name__ == '__main__':
     logging.basicConfig(filename='/tmp/error.log', level=logging.DEBUG)
-    
-    # Configuração para iniciar o Gunicorn diretamente no script
+
     from gunicorn.app.wsgiapp import run
-    
+
     sys.argv[0] = "gunicorn"
     sys.argv.extend([
-        "app:app",            # Apontando para o app Flask
-        "--bind=0.0.0.0:8000" # Host e porta
+        "app:app",
+        "--bind=0.0.0.0:8000"
     ])
-    
-    # Inicia o servidor Gunicorn
+
     run()
